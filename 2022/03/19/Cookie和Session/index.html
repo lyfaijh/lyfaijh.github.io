@@ -15,7 +15,7 @@
 <meta property="og:description" content="Cookie和Session(1)Cookie注意事项1.SetCookie()之前不能有任何html输出，空格，空白行都不行 2.SetCookie()之后，在当前页调用echo $_COOKIE[&quot;name&quot;]不会有输出，必须刷新或到下一个页面才可以看到Cookie值 3.使用Cookie的限制，一个浏览器能创建的Cookie数量最多为30个，并且每个不能超过4KB，每个W">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-19T05:23:01.999Z">
-<meta property="article:modified_time" content="2022-03-19T05:23:02.184Z">
+<meta property="article:modified_time" content="2022-04-11T01:45:26.324Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -84,6 +84,8 @@
 <p>4.Cookie是保存在客户端的，如果用户禁用了Cookie，那么Cookie也就失效了</p>
 <p>5.Cookie的生命周期到了，Cookie就会失效</p>
 <p>6.设置一个Cookie时失效时间为time()那么在页面浏览完之后就被删除</p>
+<span id="more"></span>
+
 <h2 id="2-什么是Session"><a href="#2-什么是Session" class="headerlink" title="(2)什么是Session"></a>(2)什么是Session</h2><p><strong>1.什么是Session？</strong></p>
 <p>Session译为“会话”，其本意是指有始有终的一系列动作/消息</p>
 <p>Web中的Session指的就是用户在浏览某个网站时，从进入网站到浏览器关闭所经过的这段时间，也就是用户浏览这个网站所花费的时间</p>

